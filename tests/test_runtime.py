@@ -28,6 +28,40 @@ def spec(worker="worker.one", task="task.one"):
 
 
 class RuntimeTests(unittest.TestCase):
+
+    def test_truthy_non_boolean_policy_result_denies(self):
+        runtime = WorkerRuntime(adapter=FakeAdapter(), policy_check=lambda p, s: "allow")
+        try:
+            with self.assertRaises(PermissionError):
+                runtime.submit("principal.one", spec())
+        finally:
+            runtime.shutdown()
+
+    def test_worker_spec_type_is_required(self):
+        runtime = WorkerRuntime(adapter=FakeAdapter(), policy_check=lambda p, s: True)
+        try:
+            with self.assertRaises(TypeError):
+                runtime.submit("principal.one", object())
+        finally:
+            runtime.shutdown()
+
+    def test_supervisor_capacity_is_bounded(self):
+        with self.assertRaises(ValueError):
+            WorkerRuntime(adapter=FakeAdapter(), policy_check=lambda p, s: True, max_workers=257)
+        with self.assertRaises(ValueError):
+            WorkerRuntime(adapter=FakeAdapter(), policy_check=lambda p, s: True, max_workers=4, max_queue=4093)
+
+    def test_truthy_non_boolean_adapter_health_is_unhealthy(self):
+        adapter = FakeAdapter()
+        adapter.health = lambda: "healthy"
+        runtime = WorkerRuntime(adapter=adapter, policy_check=lambda p, s: True)
+        try:
+            self.assertFalse(runtime.health().adapter_healthy)
+            with self.assertRaises(RuntimeError):
+                runtime.submit("principal.one", spec())
+        finally:
+            runtime.shutdown()
+
     def test_successful_lifecycle_and_audit(self):
         events = []
         runtime = WorkerRuntime(adapter=FakeAdapter(), policy_check=lambda p, s: True, audit_sink=events.append)
