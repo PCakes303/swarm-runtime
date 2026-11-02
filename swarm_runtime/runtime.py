@@ -67,10 +67,12 @@ class WorkerRuntime:
         max_workers: int = 4,
         max_queue: int = 16,
     ):
-        if not isinstance(max_workers, int) or isinstance(max_workers, bool) or max_workers < 1:
-            raise ValueError("max_workers must be a positive integer")
-        if not isinstance(max_queue, int) or isinstance(max_queue, bool) or max_queue < 0:
-            raise ValueError("max_queue must be a non-negative integer")
+        if not isinstance(max_workers, int) or isinstance(max_workers, bool) or not 1 <= max_workers <= 256:
+            raise ValueError("max_workers must be an integer in [1, 256]")
+        if not isinstance(max_queue, int) or isinstance(max_queue, bool) or not 0 <= max_queue <= 4096:
+            raise ValueError("max_queue must be an integer in [0, 4096]")
+        if max_workers + max_queue > 4096:
+            raise ValueError("combined worker and queue capacity must not exceed 4096")
         if not callable(getattr(adapter, "run", None)) or not callable(getattr(adapter, "health", None)):
             raise TypeError("adapter must implement run(spec) and health()")
         self.adapter = adapter
@@ -96,6 +98,8 @@ class WorkerRuntime:
             })
 
     def submit(self, principal_id: str, spec: WorkerSpec) -> WorkerHandle:
+        if not isinstance(spec, WorkerSpec):
+            raise TypeError("spec must be a WorkerSpec")
         spec.validate()
         if not isinstance(principal_id, str) or not principal_id.strip() or len(principal_id) > 128:
             raise PermissionError("a trusted principal identifier is required")
