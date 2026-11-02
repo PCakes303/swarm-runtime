@@ -19,7 +19,7 @@ These are requested budgets, not enforced operating-system limits. The trusted a
 
 ## Admission and lifecycle
 
-Admission requires a policy callback returning exactly `True`. Missing callbacks, false decisions and callback exceptions deny submission. Active plus queued submissions are bounded by `max_workers + max_queue`.
+Admission requires a policy callback returning exactly `True`. Missing callbacks, false decisions and callback exceptions deny submission. Active plus queued submissions are bounded by `max_workers + max_queue`; `max_workers` is capped at 256, `max_queue` at 4,096, and combined capacity at 4,096. Policy admission accepts only explicit boolean `True`.
 
 Lifecycle states are `pending`, `running`, `succeeded` and `failed`. Adapter exceptions and nonzero exit codes fail the worker. Completion events are emitted through the optional audit callback. If an audit callback is configured and fails, the submission or completion is treated as failed.
 
