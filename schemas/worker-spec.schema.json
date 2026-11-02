@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/PCakes303/swarm-runtime/blob/main/schemas/worker-spec.schema.json",
+  "title": "Swarm Runtime Worker Specification",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["worker_id", "task_id", "workload_ref", "cpu_seconds", "memory_mb", "wall_time_seconds", "output_bytes"],
+  "properties": {
+    "worker_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "task_id": {"type": "string", "minLength": 1, "maxLength": 128, "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"},
+    "workload_ref": {"type": "string", "minLength": 1, "maxLength": 512},
+    "cpu_seconds": {"type": "integer", "minimum": 1, "maximum": 60},
+    "memory_mb": {"type": "integer", "minimum": 16, "maximum": 4096},
+    "wall_time_seconds": {"type": "integer", "minimum": 1, "maximum": 300},
+    "output_bytes": {"type": "integer", "minimum": 0, "maximum": 1048576}
+  }
+}
