@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "manifest_version": "1.0.0",
+  "id": "swarm-runtime",
+  "name": "swarm-runtime",
+  "visibility": "public",
+  "maturity": "scaffolding",
+  "summary": "Experimental bounded worker supervisor with lifecycle, admission controls, health reporting and an explicit execution-adapter boundary.",
+  "license": {
+    "expression": null,
+    "status": "pending-review",
+    "notes": "Repository-specific license decision remains pending review."
+  },
+  "interfaces": [
+    {
+      "name": "worker-request-v1",
+      "version": "1.0.0",
+      "kind": "schema",
+      "stability": "experimental"
+    },
+    {
+      "name": "worker-adapter-v1",
+      "version": "0.1.0",
+      "kind": "library",
+      "stability": "experimental"
+    },
+    {
+      "name": "worker-supervisor-v1",
+      "version": "0.1.0",
+      "kind": "library",
+      "stability": "experimental"
+    }
+  ],
+  "dependencies": [
+    {
+      "id": "identity-trust",
+      "constraint": "principal identity and delegation context contract; version TBD",
+      "kind": "contract"
+    },
+    {
+      "id": "policy-engine",
+      "constraint": "default-deny worker admission decision contract; version TBD",
+      "kind": "contract"
+    },
+    {
+      "id": "audit-provenance",
+      "constraint": "worker lifecycle event contract; version TBD",
+      "kind": "contract"
+    },
+    {
+      "id": "sandbox-security",
+      "constraint": "isolated execution adapter and resource enforcement contract; planned, version TBD",
+      "kind": "contract"
+    }
+  ],
+  "security": {
+    "threat_model": "docs/THREAT-MODEL.md",
+    "secrets_in_repository": false,
+    "data_classification": "public",
+    "security_contact": null
+  },
+  "default_branch": "main",
+  "compatibility": [],
+  "evidence": [
+    {
+      "claim": "Admission denial, queue limits, lifecycle and adapter failure paths are covered by tests.",
+      "kind": "test",
+      "location": "tests/test_runtime.py"
+    }
+  ],
+  "$id": "https://github.com/PCakes303/swarm-runtime/blob/main/manifest.json"
+}
