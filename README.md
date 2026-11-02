@@ -6,7 +6,7 @@ Experimental bounded worker supervisor and adapter contract for the hybrid agent
 
 - Validates worker/task identifiers, opaque workload references and bounded resource requests.
 - Requires an explicit policy callback returning exactly `True`; missing, false or raising policy callbacks deny admission.
-- Bounds concurrent plus queued submissions.
+- Bounds concurrent plus queued submissions (at most 256 workers and 4,096 combined worker/queue slots).
 - Tracks pending, running, succeeded and failed lifecycle states.
 - Emits optional lifecycle events through an audit callback. If configured, audit failures fail closed.
 - Reports adapter health and supervisor capacity.
