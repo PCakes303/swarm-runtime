@@ -1,0 +1,58 @@
+{
+  "capabilities_version": "1.1.0",
+  "repository": "swarm-runtime",
+  "repository_id": "swarm-runtime",
+  "maturity": "scaffolding",
+  "capabilities": [
+    {
+      "id": "swarm.worker-spec-validation",
+      "name": "Worker specification validation",
+      "status": "scaffolded",
+      "description": "Validates worker and task references plus bounded CPU, memory, wall-time and output budgets.",
+      "evidence": [
+        "swarm_runtime/models.py",
+        "tests/test_models.py"
+      ]
+    },
+    {
+      "id": "swarm.worker-lifecycle-supervision",
+      "name": "Worker lifecycle supervision",
+      "status": "scaffolded",
+      "description": "Supervises adapter-backed worker submissions through pending, running, succeeded and failed states.",
+      "evidence": [
+        "swarm_runtime/runtime.py",
+        "tests/test_runtime.py"
+      ]
+    },
+    {
+      "id": "swarm.worker-admission-controls",
+      "name": "Bounded worker admission controls",
+      "status": "scaffolded",
+      "description": "Applies fail-closed policy checks and bounds active plus queued work.",
+      "evidence": [
+        "swarm_runtime/runtime.py",
+        "tests/test_runtime.py"
+      ]
+    },
+    {
+      "id": "swarm.worker-health-reporting",
+      "name": "Adapter health reporting",
+      "status": "scaffolded",
+      "description": "Reports adapter health and supervisor capacity without asserting workload trust.",
+      "evidence": [
+        "swarm_runtime/runtime.py",
+        "tests/test_runtime.py"
+      ]
+    }
+  ],
+  "explicit_non_capabilities": [
+    "execution of arbitrary workload code",
+    "process, container or virtual-machine isolation",
+    "operating-system CPU or memory enforcement",
+    "network or filesystem sandboxing",
+    "production identity verification or authorization",
+    "durable or distributed queues and scheduling",
+    "authenticated audit ingestion or signed provenance",
+    "worker trust or capability certification"
+  ]
+}
