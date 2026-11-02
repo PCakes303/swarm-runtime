@@ -1,0 +1,9 @@
+# Swarm Runtime
+
+Experimental bounded worker supervisor and execution-adapter contract for the hybrid agent swarm.
+
+- README.md: scope and quick start.
+- docs/WORKER-CONTRACT.md: worker request, adapter, lifecycle and resource contract.
+- docs/THREAT-MODEL.md: trust boundaries and explicit isolation limitations.
+- Python API: swarm_runtime.
+- This package supervises trusted adapters; it is not a sandbox and does not execute arbitrary workloads.
