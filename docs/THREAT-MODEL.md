@@ -7,7 +7,8 @@ The supervisor handles workload references, worker/task identifiers, resource re
 ## Controls in this scaffold
 
 - Strict bounded worker-spec validation.
-- Bounded concurrent plus queued submissions.
+- Bounded concurrent plus queued submissions with hard worker/queue capacity ceilings (256 workers, 4,096 combined slots).
+- Explicit type checks for worker specifications and boolean-only policy/health approvals.
 - Fail-closed policy callback.
 - Lifecycle state tracking and explicit adapter health result.
 - Optional audit callback; when configured, callback failures fail closed.
