@@ -28,10 +28,15 @@
       "id": "swarm.worker-admission-controls",
       "name": "Bounded worker admission controls",
       "status": "scaffolded",
-      "description": "Applies fail-closed policy checks and bounds active plus queued work.",
+      "description": "Applies fail-closed boolean-only policy checks and bounds active plus queued work to at most 256 workers and 4,096 combined slots.",
       "evidence": [
         "swarm_runtime/runtime.py",
         "tests/test_runtime.py"
+      ],
+      "limitations": [
+        "Policy callback is an integration seam, not a production policy service.",
+        "No authenticated principal verification or protected-resource enforcement is implemented.",
+        "Resource budgets are validated admission metadata until a trusted sandbox adapter enforces them."
       ]
     },
     {
