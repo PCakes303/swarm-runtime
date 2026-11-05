@@ -46,4 +46,4 @@ finally:
 
 Do not use an in-process adapter for untrusted workloads. Production execution requires a reviewed adapter from the planned Sandbox Security component, plus real Identity & Trust, Policy Engine and Audit & Provenance integrations.
 
-See [worker contract](docs/WORKER-CONTRACT.md) and [threat model](docs/THREAT-MODEL.md). Python 3.10–3.12 are covered by CI. No release is published; the scoped mixed-license policy is documented in [LICENSE.md](LICENSE.md).
+See [worker contract](docs/WORKER-CONTRACT.md) and [threat model](docs/THREAT-MODEL.md). Python 3.10–3.12 are covered by CI. No release is published. The policy in [LICENSE.md](LICENSE.md) documents the intended mixed-license scope, but this repository's manifest license status remains `pending-review` until contributor authority, file-level provenance and third-party notices are checked.
